@@ -2,7 +2,7 @@ const koa = require('koa');
 const router = require('koa-router');
 const request = require('request');
 const path = require('path');
-const {url,fn} = require(path.resolve('url'));
+const {url,paihangList,gedanList} = require(path.resolve('url'));
 
 let app = new koa();
 app.listen(2020,function(){
@@ -31,6 +31,7 @@ proxyResponse(url.geshou.src,'/geshou');
 proxyResponse(url.geshou.list,'/geshou/list');
 proxyResponse(url.geshou.info,'/geshou/info');
 paihangInfo()
+gedanInfo()
 
 
 function proxyResponse(src,routername){
@@ -43,14 +44,34 @@ function proxyResponse(src,routername){
   });
 }
 
+// 排行榜详情页
 async function paihangInfo(){
   let data;
   try{
-    data=await fn();
+    data=await paihangList();
     data.forEach(item=>{
       request(`http://m.kugou.com/rank/info/?rankid=${item}&page=1&json=true`, function (error, res, body) {
         if(res.statusCode == 200 || res.statusCode == 304){
           r1.get(`/paihang/${item}`,ctx=>{
+            ctx.body=body
+          })
+        }
+      });
+    })
+  }catch(e){
+    throw e;
+  }
+}
+
+// 歌单详情页
+async function gedanInfo(){
+  let data;
+  try{
+    data=await gedanList();
+    data.forEach(item=>{
+      request(`http://m.kugou.com/plist/list/${item}?json=true`, function (error, res, body) {
+        if(res.statusCode == 200 || res.statusCode == 304){
+          r1.get(`/gedan/${item}`,ctx=>{
             ctx.body=body
           })
         }

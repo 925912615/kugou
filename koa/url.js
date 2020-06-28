@@ -17,15 +17,14 @@ const url = {
   }
 }
 
-let fn=function(){
+let paihangList=function(){
   return new Promise((resolve,reject)=>{
     request("http://m.kugou.com/rank/list&json=true", function (error, res, body) {
       let arr=[]
       if(res.statusCode == 200 || res.statusCode == 304){
-        data=JSON.parse(body);
+        let data=JSON.parse(body);
         data.rank.list.forEach((item,index)=>{
           arr[index]=item.rankid;
-          console.log(item.rankid);
         })
       }
       resolve(arr)
@@ -34,4 +33,22 @@ let fn=function(){
   })
 }
 
-module.exports = {url,fn};
+let gedanList=function(){
+  return new Promise((resolve,reject)=>{
+    request("http://m.kugou.com/plist/index&json=true", function (error, res, body) {
+      let arr=[]
+      if(res.statusCode == 200 || res.statusCode == 304){
+        let data=JSON.parse(body);
+        data.plist.list.info.forEach((item,index)=>{
+          arr[index]=item.specialid;
+          console.log(item.specialid);
+        })
+      }
+      resolve(arr)
+      reject(error);
+    });
+  })
+}
+
+gedanList()
+module.exports = {url,paihangList,gedanList};

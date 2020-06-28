@@ -15,7 +15,6 @@ export default {
   name: 'app',
   data(){
     return{
-      // selected: ''
     }
   },
   created(){
@@ -25,10 +24,6 @@ export default {
     Tabbar
   },
   computed:{
-    selected(){
-      console.log(this.$router.path);
-      return this.$router.path
-    }
 	}
 }
 </script>

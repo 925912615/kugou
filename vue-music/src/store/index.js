@@ -7,14 +7,18 @@ const store=new Vuex.Store({
   strict: true,
   state: {
     xinge: [],
-    paihang: []
+    paihang: [],
+    gedan: []
   },
   mutations: {
-    appendXinge(state,arg){
+    appendXinge(state, arg){
       state.xinge=arg;
     },
-    appendPaihang(state,arg){
+    appendPaihang(state, arg){
       state.paihang=arg;
+    },
+    appendGedan(state, arg){
+      state.gedan=arg;
     }
   },
   actions: {
@@ -25,6 +29,10 @@ const store=new Vuex.Store({
     async loadPaihang({commit}, arg){
       let data=await (await fetch('http://localhost:2020/paihang')).json();
       commit('appendPaihang',data.rank.list);
+    },
+    async loadGedan({commit}, arg){
+      let data=await (await fetch('http://localhost:2020/gedan')).json();
+      commit('appendGedan',data.plist.list.info);
     }
   },
   getters: {
@@ -40,6 +48,12 @@ const store=new Vuex.Store({
        }
       return state.paihang;
     },
+    gedan(state){
+      if(state.gedan.length == 0){
+        store.dispatch('loadGedan');
+      }
+      return state.gedan
+    }
   }
 })
 export default store;

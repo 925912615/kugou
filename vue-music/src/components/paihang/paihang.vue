@@ -33,9 +33,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.paihang
-  color: black;
-  .mint-cell-title
-    img
-      padding: 10px;
+.mint-cell-title
+  img
+    padding: 10px;
 </style>

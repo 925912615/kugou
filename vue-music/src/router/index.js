@@ -1,10 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Xinge from '@/components/xinge/xinge'
-// import Paihang from '@/components/paihang/paihang'
-// import Gedan from '@/components/gedan/gedan'
-// import Geshou from '@/components/geshou/geshou'
-// import PaihangInfo from '@/components/paihang-info/paihang-info'
 Vue.use(Router)
 
 // 主页路由 -> 懒加载
@@ -13,7 +8,8 @@ const Paihang = ()=> import('@/components/paihang/paihang')
 const Gedan = ()=> import('@/components/gedan/gedan')
 const Geshou = ()=> import('@/components/geshou/geshou')
 // 二级路由 -> 懒加载
-const PaihangInfo = ()=> import('@/components/paihang-info/paihang-info')
+const PaihangList = ()=> import('@/components/paihang-list/paihang-list')
+const GedanList = ()=> import('@/components/gedan-list/gedan-list')
 
 
 export default new Router({
@@ -32,7 +28,7 @@ export default new Router({
       children:[
         {
           path: 'list',
-          component: PaihangInfo,
+          component: PaihangList,
           meta:{
             title: '歌单列表',
             back: true
@@ -50,21 +46,23 @@ export default new Router({
       children:[
         {
           path: ':id',
-          component: PaihangInfo,
-          // meta:{
-          //   title: '排行详情',
-          //   back: true
-          // }
+          component: PaihangList
         }
       ]
     },
     {
       path: '/gedan',
       component: Gedan,
-      meta:{
+      meta: {
         title: '歌单',
         back: false
-      }
+      },
+      children: [
+        {
+          path: ':id',
+          component: GedanList
+        }
+      ]
     },
     {
       path: '/geshou',
