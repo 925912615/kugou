@@ -1,4 +1,4 @@
-# 仿酷狗web移动端页面（http://m.kugou.com）
+# 仿酷狗web移动端页面（[酷狗音乐](http://m.kugou.com)）
 ## 引用[官网API](https://github.com/ecitlm/Kugou-api),nodejs+koa做代理，webpack+vuejs+vuex+mint-ui打造迷你酷狗web移动端页面
 
 ### 使用：
