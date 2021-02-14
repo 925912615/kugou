@@ -1,7 +1,7 @@
 <template>
 <div class="paihang">
   <div
-    v-for="item in paihang"
+    v-for="item in dataList"
     :key="item.id"
     @click="selectItem(item)">
     <mt-cell :title="item.rankname">
@@ -17,17 +17,22 @@ export default {
   name: 'paihang',
   data(){
     return{
+      dataList: []
     }
+  },
+  mounted(){
+    this.getData()
   },
   methods: {
     selectItem(item){
       this.$router.push(`/paihang/${item.rankid}`);
+    },
+    async getData(){
+      const { data: res } = await this.$axios.get('http://localhost:2020/paihang');
+      this.dataList = res.rank.list;
     }
   },
   computed: {
-    paihang(){
-      return this.$store.getters.paihang;
-    }
   }
 }
 </script>

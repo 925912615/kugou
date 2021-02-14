@@ -1,7 +1,8 @@
 <template>
   <div class="wrap">
     <mt-cell
-      v-for="song in songs"
+      @click.native="getPlayDetail(song,index)"
+      v-for="(song,index) in songs"
       :key="song.audio_id"
       :title="song.filename"
       :value="song.extname">
@@ -10,6 +11,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'music-list',
   props:{
@@ -17,7 +20,24 @@ export default {
       type: Array,
       default: []
     }
-  }
+  },
+  methods: {
+    async getPlayDetail(song,index) {
+      const { data: res } = await this.$axios.get("http://localhost:2020/play/getdata", {
+        params: {
+          hash: song.hash,
+        },
+      });
+      this.selectPlay({
+        list: this.songs,
+        index,
+        song: res.data
+      })
+    },
+    ...mapActions([
+      'selectPlay'
+    ])
+  },
 }
 </script>
 

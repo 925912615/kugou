@@ -29,6 +29,7 @@ export default {
       this.dataInfo=data.info
       this.songsList=data.songs.list
       this.addtime=data.songs.list[0].addtime.slice(0,10)
+      console.log(this.songsList);
     }
   },
   computed: {

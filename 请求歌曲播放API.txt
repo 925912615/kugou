@@ -1,0 +1,22 @@
+http://trackercdnbj.kugou.com/i/v2/?
+
+album_audio_id          album_audio_id
+behavior                behavior
+cmd                     module
+album_id                mtype
+hash                     cmd
+userid                  token
+pid                     album_id
+version                 userid
+area_code               hash
+appid                   pid
+key                     vipType
+pidversion              version
+with_res_tag            area_code
+                        appid
+                        mid
+                        key
+                        pidversion
+                        with_res_tag
+
+

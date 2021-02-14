@@ -3,6 +3,7 @@ import store from './store/index'
 import MintUI from 'mint-ui'
 import App from './App'
 import router from './router'
+import axios from 'axios'
 
 import 'mint-ui/lib/style.css'
 import 'common/stylus/index.styl'
@@ -20,6 +21,7 @@ Vue.filter('length10',e=>{
 })
 
 Vue.config.productionTip = false
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({

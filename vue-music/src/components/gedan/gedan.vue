@@ -1,7 +1,7 @@
 <template>
 <div class="gedan">
 <bg-cell
- v-for="item in gedan"
+ v-for="item in dataList"
  :key="item.id"
  :title="item.specialname"
  :label="item.playcount"
@@ -18,15 +18,24 @@ import BgCell from 'base/bg-cell/bg-cell'
 
 export default {
   name: 'gedan',
+  data() {
+    return {
+      dataList: []
+    }
+  },
+  mounted() {
+    this.getData();
+  },
   methods: {
     selectItem(item){
       this.$router.push(`/gedan/${item.specialid}`)
+    },
+    async getData(){
+      const { data: res } = await this.$axios.get('http://localhost:2020/gedan');
+      this.dataList = res.plist.list.info;
     }
   },
   computed: {
-    gedan(){
-      return this.$store.getters.gedan;
-    }
   },
   components: {
     BgCell
